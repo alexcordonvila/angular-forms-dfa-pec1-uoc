@@ -13,8 +13,19 @@
         >
         <span [hidden]="email.valid || (!email.dirty && !signform.submitted)" style="color: red">Email required</span>
     </div>
-    
-    
+     <div>
+        <label for="password">Password:</label>
+        <input 
+        id="password"
+        type = "text"
+        name = "password"
+        [(ngModel)] = "user.password"
+        #password="ngModel"
+        required
+        placeholder="Password"
+        >
+        <span [hidden]="password.valid || (!password.dirty && !signform.submitted)"  style="color: red">Password required</span>
+    </div>
     <div>
         <label for="Name">Name:</label>
         <input 
@@ -27,6 +38,57 @@
         placeholder="Name"
         >
         <span [hidden]="name.valid || (!name.dirty && !signform.submitted)"  style="color: red">Name required</span>
+    </div>
+    <div>
+        <label for="surname1">Surname 1:</label>
+        <input 
+        id="surname1"
+        type = "text"
+        name = "surname1"
+        [(ngModel)] = "user.surname1"
+        #surname1="ngModel"
+        required
+        placeholder="Surname1"
+        >
+        <span [hidden]="surname1.valid || (!surname1.dirty && !signform.submitted)"  style="color: red">Surname 1 required</span>
+    </div>
+    <div>
+        <label for="surname2">Surname 2:</label>
+        <input 
+        id="surname2"
+        type = "text"
+        name = "surname2"
+        [(ngModel)] = "user.surname2"
+        #surname2="ngModel"
+        required
+        placeholder="Surname 2"
+        >
+        <span [hidden]="surname2.valid || (!surname2.dirty && !signform.submitted)"  style="color: red">Surname 2 required</span>
+    </div>
+     <div>
+        <label for="alias">Alias:</label>
+        <input 
+        id="alias"
+        type = "text"
+        name = "alias"
+        [(ngModel)] = "user.alias"
+        #alias="ngModel"
+        placeholder="Alias"
+        >
+        <span [hidden]="alias.valid || (!alias.dirty && !signform.submitted)"  style="color: red">Alias required</span>
+    </div>
+     <div>
+        <label for="birthdate">Birth date:</label>
+        <input 
+        id="birthdate"
+        type = "date"
+        name = "birthdate"
+        [(ngModel)] = "user.birthDate"
+        #birthdate="ngModel"
+        required
+       
+        >
+        <span [hidden]="birthdate.valid || (!birthdate.dirty && !signform.submitted)"  style="color: red">Birth Date required</span>
     </div>
     <div>
         <button type="submit">Join Now</button>
