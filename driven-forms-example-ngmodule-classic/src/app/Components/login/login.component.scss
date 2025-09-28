@@ -1,0 +1,126 @@
+// ===================================
+// 1. Variables Globales
+// ===================================
+
+// Colores
+$primary-color: #007bff;   // Azul vibrante para el botón
+$secondary-color: #6c757d; // Gris para texto o bordes
+$error-color: #dc3545;     // Rojo para mensajes de error
+$background-color: #f8f9fa; // Fondo claro
+$card-background: #ffffff; // Fondo del formulario/tarjeta
+
+// Espaciado y tipografía
+$font-stack: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$form-max-width: 400px;
+$padding-base: 1.5rem;
+
+
+// ===================================
+// 2. Estilos del Layout
+// ===================================
+
+body {
+  font-family: $font-stack;
+  background-color: $background-color;
+  
+  // ⚡️ CENTRADO COMPLETO CON FLEXBOX
+  display: flex;
+  justify-content: center; // Centrado horizontal
+  align-items: center;     // Centrado vertical
+  min-height: 100vh;       // Ocupa el 100% de la altura de la vista
+  margin: 0;
+}
+
+h1 {
+  color: #343a40;
+  margin-bottom: $padding-base * 2;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+// Estilo principal del formulario
+form {
+  background: $card-background;
+  padding: $padding-base * 2;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: $form-max-width; // Asegura que no sea más ancho que 400px (o el valor de la variable)
+}
+
+
+
+// ===================================
+// 3. Controles de Formulario
+// ===================================
+
+// Contenedor de cada grupo (label + input + error)
+div {
+  margin-bottom: $padding-base;
+}
+
+label {
+  display: block; // Asegura que la etiqueta esté en su propia línea
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #495057;
+  font-size: 0.9rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  box-sizing: border-box; // Incluye padding y borde en el ancho
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none; // Elimina el borde de enfoque por defecto del navegador
+  }
+}
+
+// Estilo para el campo de entrada inválido
+// Se basa en la clase 'ng-invalid' que Angular añade a los inputs no válidos
+input.ng-invalid.ng-dirty {
+  border-color: $error-color;
+}
+
+// Mensaje de error
+span {
+  display: block; // Asegura que el error esté en una nueva línea
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  color: $error-color;
+}
+
+// ===================================
+// 4. Botón
+// ===================================
+
+button[type="submit"] {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: $padding-base / 2;
+  background-color: $primary-color;
+  color: $card-background; // Color blanco
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease-in-out;
+
+  &:hover:not([disabled]) {
+    background-color: darken($primary-color, 10%);
+  }
+
+  // Estilo cuando el botón está deshabilitado
+  &[disabled] {
+    background-color: $secondary-color; // Gris
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}

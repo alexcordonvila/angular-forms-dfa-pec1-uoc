@@ -34,7 +34,8 @@ export class LoginComponent implements OnInit{
   el CLI no genera el componente con la implementación del interfaz OnInit
   */
   ngOnInit(): void {
-    this.user.email = 'info@uoc.edu';
+    //Descometa esta inicialización para entender en TWO DATA BINDING
+    //this.user.email = 'info@uoc.edu';
   }
 
   /*
