@@ -1,8 +1,24 @@
 <h1>Sign-in component</h1>
-<form #signform="ngForm" (ngSubmit)="checkSignin()">
-    <div>
-        <label>Name:</label>
+<form #signform="ngForm" (ngSubmit)="checkSignin(signform)">
+     <div>
+        <label for="email">Email:</label>
         <input 
+        id="email"
+        type = "email"
+        name = "email"
+        [(ngModel)] = "user.email"
+        #email="ngModel"
+        required
+        placeholder="Email..."
+        >
+        <span [hidden]="email.valid || (!email.dirty && !signform.submitted)" style="color: red">Email required</span>
+    </div>
+    
+    
+    <div>
+        <label for="Name">Name:</label>
+        <input 
+        id="Name"
         type = "text"
         name = "name"
         [(ngModel)] = "user.name"
@@ -10,9 +26,9 @@
         required
         placeholder="Name"
         >
-        <span [hidden]="name.valid || name.pristine" style="color: red">Name required</span>
+        <span [hidden]="name.valid || (!name.dirty && !signform.submitted)"  style="color: red">Name required</span>
     </div>
     <div>
-        <button type="submit" [disabled]="!signform.form.valid">Sign in</button>
+        <button type="submit">Join Now</button>
     </div>
 </form>

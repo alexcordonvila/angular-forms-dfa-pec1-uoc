@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserDto } from '../../Models/user.dto';
-
+import { NgForm } from '@angular/forms';
 @Component({
   selector: 'app-sign-in',
   standalone: false,
@@ -16,12 +16,22 @@ export class SignInComponent  implements OnInit{
     //Descometa esta inicialización para entender en TWO DATA BINDING
     //this.user.email = 'info@uoc.edu';
   }
-   checkSignin(): void{
-    console.log(
+   checkSignin(form: NgForm): void{
+      if (!form.valid) {
+        console.log('Intento de envío bloqueado: El formulario no es válido.');
+        return
+      }
+      else{
+        console.log('¡Formulario válido! Enviando datos:', this.user);
+console.log(
     'User email -->' +
     this.user.email +
     'User password -->' +
-    this.user.password
+    this.user.password +
+    'User Name -->' +
+    this.user.name 
     );
+      }
+    
   }
 }
