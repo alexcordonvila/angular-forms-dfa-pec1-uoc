@@ -1,94 +1,91 @@
 <h1>Sign-in component</h1>
 <form #signform="ngForm" (ngSubmit)="checkSignin(signform)">
-     <div>
+    <div>
         <label for="email">Email:</label>
-        <input 
-        id="email"
-        type = "email"
-        name = "email"
-        [(ngModel)] = "user.email"
-        #email="ngModel"
-        required
-        placeholder="Email..."
-        >
-        <span [hidden]="email.valid || (!email.dirty && !signform.submitted)" style="color: red">Email required</span>
+        <input id="email" type="email" name="email" [(ngModel)]="user.email" #email="ngModel" required
+            placeholder="Email..." pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$">
+        <span [hidden]="email.valid || (!email.dirty && !signform.submitted)" style="color: red"> Por favor, ingresa un
+            email válido y asegúrate de que no esté vacío.
+        </span>
     </div>
-     <div>
+    <div>
         <label for="password">Password:</label>
-        <input 
-        id="password"
-        type = "text"
-        name = "password"
-        [(ngModel)] = "user.password"
-        #password="ngModel"
-        required
-        placeholder="Password"
-        >
-        <span [hidden]="password.valid || (!password.dirty && !signform.submitted)"  style="color: red">Password required</span>
+        <input id="password" type="text" name="password" [(ngModel)]="user.password" #password="ngModel" required
+            placeholder="Password">
+        <span [hidden]="password.valid || (!password.dirty && !signform.submitted)" style="color: red">Password
+            required</span>
     </div>
     <div>
         <label for="Name">Name:</label>
-        <input 
-        id="Name"
-        type = "text"
-        name = "name"
-        [(ngModel)] = "user.name"
-        #name="ngModel"
-        required
-        placeholder="Name"
-        >
-        <span [hidden]="name.valid || (!name.dirty && !signform.submitted)"  style="color: red">Name required</span>
+        <input id="Name" type="text" name="name" [(ngModel)]="user.name" #name="ngModel" required placeholder="Name"
+            minlength="5" maxlength="25">
+
+        <div *ngIf="name.invalid && (name.dirty || signform.submitted)" style="color: red">
+
+            <span *ngIf="name.errors?.['required']">
+                El campo Nombre es obligatorio.
+            </span>
+
+            <span *ngIf="name.errors?.['minlength']">
+                Debe tener al menos 5 caracteres.
+            </span>
+
+            <span *ngIf="name.errors?.['maxlength']">
+                No puede exceder los 25 caracteres.
+            </span>
+
+        </div>
+
     </div>
     <div>
         <label for="surname1">Surname 1:</label>
-        <input 
-        id="surname1"
-        type = "text"
-        name = "surname1"
-        [(ngModel)] = "user.surname1"
-        #surname1="ngModel"
-        required
-        placeholder="Surname1"
-        >
-        <span [hidden]="surname1.valid || (!surname1.dirty && !signform.submitted)"  style="color: red">Surname 1 required</span>
+        <input id="surname1" type="text" name="surname1" [(ngModel)]="user.surname1" #surname1="ngModel" required
+            placeholder="Surname1" minlength="5" maxlength="25">
+        <div *ngIf="surname1.invalid && (surname1.dirty || signform.submitted)" style="color: red">
+
+            <span *ngIf="surname1.errors?.['required']">
+                El campo Surname 1 es obligatorio.
+            </span>
+
+            <span *ngIf="surname1.errors?.['minlength']">
+                Debe tener al menos 5 caracteres.
+            </span>
+
+            <span *ngIf="surname1.errors?.['maxlength']">
+                No puede exceder los 25 caracteres.
+            </span>
+
+        </div>
     </div>
     <div>
         <label for="surname2">Surname 2:</label>
-        <input 
-        id="surname2"
-        type = "text"
-        name = "surname2"
-        [(ngModel)] = "user.surname2"
-        #surname2="ngModel"
-        required
-        placeholder="Surname 2"
-        >
-        <span [hidden]="surname2.valid || (!surname2.dirty && !signform.submitted)"  style="color: red">Surname 2 required</span>
+        <input id="surname2" type="text" name="surname2" [(ngModel)]="user.surname2" #surname2="ngModel"
+            placeholder="Surname 2" minlength="5" maxlength="25">
+        <div *ngIf="surname2.invalid && (surname2.dirty || signform.submitted)" style="color: red">
+
+            <span *ngIf="surname2.errors?.['minlength']">
+                Debe tener al menos 5 caracteres.
+            </span>
+
+            <span *ngIf="surname2.errors?.['maxlength']">
+                No puede exceder los 25 caracteres.
+            </span>
+
+        </div>
     </div>
-     <div>
+    <div>
         <label for="alias">Alias:</label>
-        <input 
-        id="alias"
-        type = "text"
-        name = "alias"
-        [(ngModel)] = "user.alias"
-        #alias="ngModel"
-        placeholder="Alias"
-        >
-        <span [hidden]="alias.valid || (!alias.dirty && !signform.submitted)"  style="color: red">Alias required</span>
+        <input id="alias" type="text" name="alias" [(ngModel)]="user.alias" #alias="ngModel" placeholder="Alias"
+            minlength="5" maxlength="25">
+        <span [hidden]="alias.valid || (!alias.dirty && !signform.submitted)" style="color: red">Alias required</span>
     </div>
-     <div>
+    <div>
         <label for="birthdate">Birth date:</label>
-        <input 
-        id="birthdate"
-        type = "date"
-        name = "birthdate"
-        [(ngModel)] = "user.birthDate"
-        #birthdate="ngModel"
-        required
-       
-        >
-        <span [hidden]="birthdate.valid || (!birthdate.dirty && !signform.submitted)"  style="color: red">Birth Date required</span>
+        <input id="birthdate" type="text" name="birthdate" [(ngModel)]="user.birthDate" #birthdate="ngModel" required
+            placeholder="DD/MM/YYYY" pattern="^\d{2}\/\d{2}\/\d{4}$">
+        <span [hidden]="birthdate.valid || (!birthdate.dirty && !signform.submitted)" style="color: red">
+            La fecha es obligatoria y debe tener el formato DD/MM/AAAA.
+        </span>
     </div>
     <div>
         <button type="submit">Join Now</button>
