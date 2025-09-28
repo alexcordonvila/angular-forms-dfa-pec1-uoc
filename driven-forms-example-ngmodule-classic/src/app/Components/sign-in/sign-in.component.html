@@ -1,1 +1,18 @@
-<p>sign-in works!</p>
+<h1>Sign-in component</h1>
+<form #signform="ngForm" (ngSubmit)="checkSignin()">
+    <div>
+        <label>Name:</label>
+        <input 
+        type = "text"
+        name = "name"
+        [(ngModel)] = "user.name"
+        #name="ngModel"
+        required
+        placeholder="Name"
+        >
+        <span [hidden]="name.valid || name.pristine" style="color: red">Name required</span>
+    </div>
+    <div>
+        <button type="submit" [disabled]="!signform.form.valid">Sign in</button>
+    </div>
+</form>

@@ -1,6 +1,10 @@
 # angular-forms-dfa-pec1-uoc
 Repositorio del ejercicio de la asignatura Desenvolupament front-end avançat (UOC), centrado en la comparación entre formularios Template-Driven y Reactive Forms en Angular. Incluye ejemplos prácticos, código de referencia y materiales de aprendizaje para comprender las diferencias y buenas prácticas de cada enfoque.
 
+
+# 1. Angular NO Usa el Virtual DOM 🚫
+Lo primero es aclarar que Angular no utiliza el Virtual DOM (VDOM) como lo hace React. Angular utiliza su propio mecanismo de renderizado llamado Detección de Cambios (Change Detection), que trabaja directamente con los objetos de tu componente y con la estructura del DOM real.
+
 # Git i `ng new` (Angular CLI)
 
 - **Per defecte**, `ng new`:

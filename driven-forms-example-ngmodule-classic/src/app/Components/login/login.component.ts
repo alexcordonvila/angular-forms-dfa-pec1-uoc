@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit{
   clase UserDTO mediante el constructor pasando por parámetro los valores ''
   */
   constructor(){
-    this.user = new UserDto('','');
+    this.user = new UserDto('','','','','', '', new Date());
   }
   /*
   Normalmente en el ngOnInit tendremos código implementado, pero si se diera el caso
