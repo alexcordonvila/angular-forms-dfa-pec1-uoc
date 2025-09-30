@@ -1,0 +1,12 @@
+<div>
+    <h1>Test Reactive Forms App</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="checkLogin()">
+        <label for="email">Email:</label>
+        <input type="email" id="email" [formControl]="email" />
+
+        <label for="password">password:</label>
+        <input type="password" id="password" [formControl]="password" />
+
+        <button type="submit" [disabled]="!loginForm">Login</button>
+    </form>
+</div>
