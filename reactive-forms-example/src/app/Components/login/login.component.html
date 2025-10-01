@@ -3,10 +3,41 @@
     <form [formGroup]="loginForm" (ngSubmit)="checkLogin()">
         <label for="email">Email:</label>
         <input type="email" id="email" [formControl]="email" />
+<!--
+        <div *ngIf="email.errors">
+            <span 
+            style="color:red" 
+            *ngIf="email.invalid && email?.errors?.['required']"
+            >Email is required</span>
+            <span></span>
+        </div>
 
+    -->
         <label for="password">password:</label>
         <input type="password" id="password" [formControl]="password" />
-
-        <button type="submit" [disabled]="!loginForm">Login</button>
+  <!--
+      
+        <div *ngIf="password.errors">
+            <span style="color:red" *ngIf="password.invalid && password?.errors?.['required']">Password is required</span>
+        </div>
+        -->
+    
+        <button type="submit" [disabled]="!loginForm.valid">Login</button>
     </form>
 </div>
+
+
+<div *ngIf="email.errors && (email.touched || email.dirty)">
+    <span style="color: red;">
+        <span *ngIf="email.errors['required']">Email is required</span>
+    </span>
+</div>
+
+<div *ngIf="password.errors && (password.touched || password.dirty)">
+    <span style="color: red;">
+        <span *ngIf="password.errors['required']">Password is required</span>
+        <span *ngIf="password.errors['minlength']">Password must be greater than 8 characters</span>
+        </span>
+</div>
+
+            
