@@ -30,6 +30,7 @@
 <div *ngIf="email.errors && (email.touched || email.dirty)">
     <span style="color: red;">
         <span *ngIf="email.errors['required']">Email is required</span>
+        <span *ngIf="email.errors['invalidKeyWord']">Email info@uoc.edu is reserved for the system admin.</span>
     </span>
 </div>
 

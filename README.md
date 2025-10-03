@@ -274,3 +274,115 @@ Cuando se utiliza `pattern`, Angular realiza dos acciones clave:
 | **`[a-zA-Z0-9]`** | Solo se permiten letras mayúsculas, minúsculas o números. |
 | **`{3,}`** | La secuencia anterior debe repetirse un mínimo de **3 veces**. |
 | **`$`** | Fin de la cadena. |
+
+
+
+Claro, aquí tienes unos apuntes con estilo universitario sobre la instalación de PostgreSQL con Docker. ¡Genial que ya activaras la **VMT** (Tecnología de Máquinas Virtuales) en la BIOS, es un paso clave para que Docker funcione correctamente\! 🚀
+
+-----
+
+# 📚 Instalación de PostgreSQL con Docker
+
+## 📝 Conceptos Previos
+
+  * **Docker:** Plataforma para desarrollar, enviar y ejecutar aplicaciones dentro de **contenedores**. Aísla el software y sus dependencias.
+  * **PostgreSQL:** Sistema de gestión de bases de datos relacionales (SGBD) de código abierto y robusto.
+  * **Contenedor (Container):** Instancia ejecutable y ligera de una imagen de Docker.
+
+-----
+
+## 💻 1. Requisito Fundamental: Virtualización
+
+**🚨 ¡Importante\!** Ya has completado esto, pero es crucial recordarlo.
+
+  * **VMT (Virtual Machine Technology) / VT-x / AMD-V:** Debe estar **activada en la BIOS/UEFI** de tu equipo. Esto permite que el motor de Docker (Docker Desktop en Windows/Mac) ejecute máquinas virtuales ligeras o utilice características de virtualización del sistema operativo (como WSL2 en Windows) para alojar los contenedores.
+
+-----
+
+## 🐳 2. Comandos Esenciales de Docker
+
+### 2.1. El Comando de Ejecución (Run)
+
+El comando que usaste es la forma estándar y más sencilla de levantar un contenedor de PostgreSQL. Vamos a desglosarlo para entender cada parte:
+
+```bash
+docker run --name some-postgres -e POSTGRES_PASSWORD=root -p 5431:5432 -d postgres
+```
+
+| Opción | Significado | Función |
+| :--- | :--- | :--- |
+| `docker run` | Comando base | Descarga la imagen (si no existe) y ejecuta un nuevo contenedor. |
+| `--name some-postgres` | Asigna un nombre | Le da un **nombre legible** (`some-postgres`) al contenedor. Esto facilita su gestión posterior (detener, iniciar, eliminar). *Si se omite, Docker asigna un nombre aleatorio.* |
+| `-e POSTGRES_PASSWORD=root` | Variable de entorno | Establece la **contraseña del superusuario** (`postgres`). **¡Es obligatorio\!** Para entornos de desarrollo se suele usar `root`, `password`, etc. |
+| `-p 5431:5432` | Mapeo de puertos | **Publica el puerto** interno del contenedor (`5432` es el puerto por defecto de PostgreSQL) al puerto de tu máquina host (`5431`). Podrás acceder a la DB desde el puerto **5431** de tu `localhost`. |
+| `-d` | Modo "Detached" | Ejecuta el contenedor en **segundo plano** (modo *daemon*). No verás los logs en tu terminal, pero el contenedor estará corriendo. |
+| `postgres` | Imagen base | Nombre de la **imagen oficial de PostgreSQL** en Docker Hub. Por defecto, descarga la *última* versión estable (etiqueta `latest`). |
+
+### 2.2. Comprobación y Gestión
+
+Una vez ejecutado el `docker run`, puedes usar estos comandos para verificar y controlar el contenedor:
+
+  * **Ver Contenedores Activos:**
+
+    ```bash
+    docker ps
+    # Verifica que 'some-postgres' aparezca en la lista con estado 'Up'
+    ```
+
+  * **Ver Todos (Activos e Inactivos):**
+
+    ```bash
+    docker ps -a
+    ```
+
+  * **Detener el Contenedor:**
+
+    ```bash
+    docker stop some-postgres
+    ```
+
+  * **Reiniciar el Contenedor:**
+
+    ```bash
+    docker start some-postgres
+    ```
+
+  * **Acceder a los Logs:** (Útil para depurar errores de arranque)
+
+    ```bash
+    docker logs some-postgres
+    ```
+
+-----
+
+## 🔌 3. Conexión a la Base de Datos
+
+Una vez que el contenedor está *Up* (Activo), puedes conectarte a la base de datos usando cualquier cliente (DBeaver, pgAdmin, VS Code, etc.) con los siguientes parámetros de conexión:
+
+| Parámetro | Valor |
+| :--- | :--- |
+| **Host/Servidor:** | `localhost` (o `127.0.0.1`) |
+| **Puerto:** | **`5431`** (el puerto que mapeaste en tu máquina host) |
+| **Usuario:** | `postgres` (el usuario por defecto) |
+| **Contraseña:** | `root` (la que definiste con `-e POSTGRES_PASSWORD`) |
+| **Base de Datos Inicial:** | `postgres` (la base de datos por defecto que se crea) |
+
+-----
+
+## 💾 4. Persistencia de Datos (Mejora)
+
+**⚠️ Problema:** Si eliminas el contenedor (`docker rm some-postgres`), ¡pierdes todos los datos\!
+**✅ Solución:** Usar **Volúmenes de Docker** para almacenar los datos de la DB fuera del contenedor.
+
+  * **Comando Mejorado (Recomendado):**
+
+    ```bash
+    docker run --name some-postgres -e POSTGRES_PASSWORD=root -p 5431:5432 \
+    -v pgdata:/var/lib/postgresql/data \
+    -d postgres
+    ```
+
+  * **Explicación del `Volume` (`-v`):**
+
+      * `-v pgdata:/var/lib/postgresql/data`: Mapea un **volumen con nombre** de Docker (`pgdata`) a la ruta interna donde PostgreSQL almacena sus archivos (`/var/lib/postgresql/data`).
+      * **Beneficio:** Ahora, si detienes y eliminas el contenedor, el volumen `pgdata` persiste. Al crear un nuevo contenedor usando el mismo volumen, PostgreSQL encontrará y usará los datos anteriores.

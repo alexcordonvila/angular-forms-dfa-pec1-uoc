@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserDTO } from 'src/app/Models/user.dto';
-
+import { checkInvalidKeyWord } from 'src/app/Directives/check-invalid-keyword.validator';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +20,11 @@ nuestro modelo UserDTO.
     poder construir los formularios haciendo uso de FormGroup y FormControl. */
   constructor(private formBuilder: FormBuilder){
     this.user = new UserDTO('','');
-    this.email = new FormControl(this.user.email, Validators.required);
+    this.email = new FormControl(
+      this.user.email, 
+      [Validators.required, 
+        checkInvalidKeyWord(/info@uoc.edu/),
+      ]);
     this.password = new FormControl(this.user.password, [Validators.required, Validators.minLength(8)] );
     /*
     Registramos los FormControl para los campos email y password y 
