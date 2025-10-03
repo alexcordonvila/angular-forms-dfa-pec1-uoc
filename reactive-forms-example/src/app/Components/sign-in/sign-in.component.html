@@ -1,0 +1,78 @@
+<div>
+    <h1>Sign in Form</h1>
+    <form [formGroup]="signinForm" (ngSubmit)="checkSignin()">
+        <label for="email">Email:</label>
+        <input type="email" id="email" [formControl]="email" required />
+
+
+        <div *ngIf="email.errors && (email.touched || email.dirty)">
+            <span style="color: red;">
+                <span *ngIf="email.errors['required']">Email is required</span>
+                <span *ngIf="email.errors['invalidKeyWord']">Email info@uoc.edu is reserved for the system admin.</span>
+                <span *ngIf="email.errors['pattern']">Email format is invalid</span>
+            </span>
+        </div>
+
+        <label for="password">password:</label>
+        <input type="password" id="password" [formControl]="password" required/>
+
+        <div *ngIf="password.errors && (password.touched || password.dirty)">
+            <span style="color: red;">
+                <span *ngIf="password.errors['required']">Password is required</span>
+                <span *ngIf="password.errors['minlength']">Password must be greater than 8 characters</span>
+            </span>
+        </div>
+
+
+        <label for="name">Name:</label>
+        <input type="text" id="name" [formControl]="name" required/>
+        <div *ngIf="name.errors && (name.touched || name.dirty)">
+            <span style="color: red;">
+                <span *ngIf="name.errors['required']">Name is required</span>
+               <span *ngIf="name.errors['minlength']">Name must be greater than 8 characters</span>
+               <span *ngIf="name.errors['maxlength']">Password must be lower than 25 characters</span>
+            </span>
+        </div>
+
+
+   <label for="surname1">Surname 1:</label>
+        <input type="text" id="surname1" [formControl]="surname1" required/>
+        <div *ngIf="surname1.errors && (surname1.touched || surname1.dirty)">
+            <span style="color: red;">
+                <span *ngIf="surname1.errors['required']">Surname 1 is required</span>
+                <span *ngIf="surname1.errors['minlength']">Surname 1 must be greater than 8 characters</span>
+               <span *ngIf="surname1.errors['maxlength']">Surname 1 must be lower than 25 characters</span>
+            </span>
+        </div>
+
+
+         <label for="surname2">Surname 2:</label>
+        <input type="text" id="surname2" [formControl]="surname2" />
+        <div *ngIf="surname2.errors && (surname2.touched || surname2.dirty)">
+            <span style="color: red;">
+                 <span *ngIf="surname2.errors['minlength']">Surname 2 must be greater than 8 characters</span>
+               <span *ngIf="surname2.errors['maxlength']">Surname 2 must be lower than 25 characters</span>
+            </span>
+        </div>
+
+        <label for="alias">Alias:</label>
+        <input type="text" id="alias" [formControl]="alias" required/>
+        <div *ngIf="alias.errors && (alias.touched || alias.dirty)">
+            <span style="color: red;">
+                <span *ngIf="alias.errors['required']">Alias is required</span>
+                 <span *ngIf="alias.errors['minlength']">Alias must be greater than 8 characters</span>
+               <span *ngIf="alias.errors['maxlength']">Alias must be lower than 25 characters</span>
+            </span>
+        </div>
+        
+        <label for="birthdate">Birth Date:</label>
+        <input type="text" id="birthdate" [formControl]="birthDate" required/>
+        <div *ngIf="birthDate.errors && (birthDate.touched || birthDate.dirty)">
+            <span style="color: red;">
+                <span *ngIf="birthDate.errors['required']">Date is required</span>
+                <span *ngIf="birthDate.errors['pattern']">Invalid date format, should be DD/MM/AAAA.</span>
+            </span>
+        </div>
+        <button type="submit" [disabled]="!signinForm.valid">Signin</button>
+    </form>
+</div>

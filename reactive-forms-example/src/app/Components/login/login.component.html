@@ -2,7 +2,7 @@
     <h1>Test Reactive Forms App</h1>
     <form [formGroup]="loginForm" (ngSubmit)="checkLogin()">
         <label for="email">Email:</label>
-        <input type="email" id="email" [formControl]="email" />
+        <input type="email" id="email" [formControl]="email" required/>
 <!--
         <div *ngIf="email.errors">
             <span 
@@ -14,7 +14,7 @@
 
     -->
         <label for="password">password:</label>
-        <input type="password" id="password" [formControl]="password" />
+        <input type="password" id="password" [formControl]="password" required   />
   <!--
       
         <div *ngIf="password.errors">

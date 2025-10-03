@@ -19,7 +19,7 @@ nuestro modelo UserDTO.
     /*Es importante resaltar que el servicio (provider) FormBuilder debe ser inyectado para 
     poder construir los formularios haciendo uso de FormGroup y FormControl. */
   constructor(private formBuilder: FormBuilder){
-    this.user = new UserDTO('','');
+    this.user = new UserDTO('','','','','','',new Date());
     this.email = new FormControl(
       this.user.email, 
       [Validators.required, 
