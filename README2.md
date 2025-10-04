@@ -108,3 +108,39 @@ Las funciones en el servicio (ej. `message.service.ts`) suelen ser **públicas**
 | **Condicionales (Booleano)** | Mejor: `if( variable )` en lugar de `if( variable == true )`. |
 | **Condicionales (Negación)** | Mejor: `if( !variable )` en lugar de `if( variable == false )`. |
 | **Comparación** | Usar siempre **`===`** (comparación de valor y tipo) en lugar de `==` (solo valor) cuando sea posible. |
+
+
+# Otros conceptos trabajados en este ejercicio:
+
+## 💡 ¿Qué Indica el ! (id!: number)?
+En el contexto de las clases de TypeScript, el ! se utiliza para decirle al compilador que sabes con certeza que la propiedad será inicializada en algún momento (normalmente fuera del constructor o por otro mecanismo), aunque no la inicialices directamente en el constructor ni le asignes un valor por defecto.
+
+1. Desactivación de la Comprobación Estricta
+Cuando tienes activada la opción de compilador estricta (strict: true en tsconfig.json, o específicamente strictPropertyInitialization), TypeScript exige que todas las propiedades de una clase sean inicializadas en el constructor.
+
+Problema: En tu ejemplo, title y description se inicializan en el constructor, pero id no. El id de un mensaje recién creado, por ejemplo, lo asignará la base de datos después de enviar la petición HTTP. El constructor, por lo tanto, no puede saber ese valor.
+
+Solución: Al añadir !, le dices al compilador: "Oye, sé que id no está inicializado aquí, pero confía en mí, siempre tendrá un valor de tipo number cuando se use en tiempo de ejecución." Esto suprime el error de inicialización estricta.
+
+2. Uso Típico en DTOs y Servicios
+Este operador es común en Data Transfer Objects (DTOs) o en propiedades de componentes, como se menciona en tus apuntes:
+
+Propiedad messages en el controlador: Nótese que tenemos que añadir ! para que nos deje limpiar un poco el código y poder “sacar” la carga de datos en un método loadMessages. Si no pusiéramos el ! tendríamos que poner el código directamente en el constructor, así queda más limpio.
+
+
+# 🛠️ Comando para Crear Servicios Genéricos
+
+Un service podríamos decir que es el primer paso para comunicarnos con una api, es decir, desde el servicio  hacemos  las  peticiones  http  y  devolvemos  la  respuesta  del  backend mapeada. 
+Es  muy  importante  tipar  los  datos.  Es  decir,  si  el  servidor  nos  devuelve  un  listado  de mensajes, nosotr@s lo mapeamos/guardamos en un MessageDTO[], es decir, en un array del tipo MessageDTO. Si el servidor nos devuelve 1 mensaje, pues lo mapeamos en una variable de tipo MessageDTO. 
+
+Aunque no hay un comando para un "message service" en particular, Angular sí tiene un comando para crear servicios genéricos (lo que tú usarías para crear un MessageService):
+
+| Comando | Alias | Resultado |
+| :--- | :--- | :--- |
+| `ng generate service <nombre-del-servicio>` | `ng g s <nombre-del-servicio>` | Crea un archivo `.service.ts` y, opcionalmente, un archivo `.spec.ts` para pruebas. |
+
+```bash
+ng generate service message
+# o simplemente:
+ng g s message
+```
