@@ -22,4 +22,29 @@ export class MessageListComponent {
       this.messageService.errorLog(error);
     }
   }
+
+
+  createMessage() : void {
+    this.router.navigateByUrl('/message/');
+  }
+
+  async deleteMessage(msgId: number): Promise<void>{
+    let result = confirm('Confirm delete message with id:' + msgId + '.');
+    if(result){
+      try{
+        const rowsAffected = await this.messageService.deleteMessage(msgId);
+        //La segunda parte es el operador de coalescencia nula (??).
+        if ((rowsAffected?.affected ?? 0) > 0) {
+          this.loadMessages();
+        }
+      }catch(error:any){
+        this.messageService.errorLog(error);
+      }
+    }
+  }
+
+  updateMessage(msgId:number): void{
+    this.router.navigateByUrl('/message/' + msgId);
+  }
+
 }

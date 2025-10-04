@@ -1,6 +1,6 @@
 <h2>Messages List!</h2>
 
-<button>ADD</button>
+<button (click)="createMessage()">ADD</button>
 
 
 <table>
@@ -19,8 +19,8 @@
             <td>{{msg.title}}</td>
             <td>{{msg.description}}</td>
             <td>
-                <button>UPDATE</button>
-                <button>DELETE</button>
+                <button (click)="updateMessage(msg.id)">UPDATE</button>
+                <button (click)="deleteMessage(msg.id)">DELETE</button>
             </td>
         </tr>
     </tbody>
