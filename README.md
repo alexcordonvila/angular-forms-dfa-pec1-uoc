@@ -24,6 +24,10 @@ Lo primero es aclarar que Angular no utiliza el Virtual DOM (VDOM) como lo hace 
     ```
   - Así el proyecto se crea **sin Git** y lo integras al repositorio que ya tienes.
 
+- **Crear nuevo proyecto con versiones anteriores de Angular**
+```bash
+npx -p @angular/cli@14 ng new CRUD-basico-angular --skip-git
+```
 
 # 3. Angular: Standalone Components vs NgModule
 
@@ -293,9 +297,9 @@ Claro, aquí tienes unos apuntes con estilo universitario sobre la instalación 
 
 ## 💻 1. Requisito Fundamental: Virtualización
 
-**🚨 ¡Importante\!** Ya has completado esto, pero es crucial recordarlo.
+**🚨 ¡Importante\!** Si docker te avisa de que no tiene VMT activado:
 
-  * **VMT (Virtual Machine Technology) / VT-x / AMD-V:** Debe estar **activada en la BIOS/UEFI** de tu equipo. Esto permite que el motor de Docker (Docker Desktop en Windows/Mac) ejecute máquinas virtuales ligeras o utilice características de virtualización del sistema operativo (como WSL2 en Windows) para alojar los contenedores.
+  * **VMT (Virtual Machine Technology) / VT-x / AMD-V:** Debe estar **activada en la BIOS/UEFI** de tu equipo. Esto permite que el motor de Docker (Docker Desktop en Windows/Mac) ejecute máquinas virtuales ligeras o utilice características de virtualización del sistema operativo (como WSL2 en Windows) para alojar los contenedores. Buscar como entrar en la BIOS del sistema y configurar esos parámetros.
 
 -----
 
