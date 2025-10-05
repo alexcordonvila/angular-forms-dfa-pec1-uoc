@@ -53,31 +53,29 @@ export class MessageFormComponent {
     //Update 
     if(this.msgId){ //C
       this.isUpdateMode = true;
-    }
-    try{
-      //Modificacion de Alex para adaptar el codigo
-      const result = await this.messageService.getMessageById(+this.msgId);
-      if (result) {
-        this.message = result;
-      } else {
-      console.error("Mensaje no encontrado");
+      try{
+        //Modificacion de Alex para adaptar el codigo
+        const result = await this.messageService.getMessageById(+this.msgId);
+        if (result) {
+          this.message = result;
+        } else {
+          console.error("Mensaje no encontrado");
+        }
+        
+        this.title.setValue(this.message.title);
+        
+        this.description.setValue(this.message.description);
+        
+        this.messageForm = this.formBuilder.group({
+          title:this.title,
+          description:this.description
+        });
+      }catch(error: any){
+        this.messageService.errorLog(error);
       }
-
-      this.title.setValue(this.message.title);
-
-      this.description.setValue(this.message.description);
-
-      this.messageForm = this.formBuilder.group({
-        title:this.title,
-        description:this.description
-      });
-    }catch(error: any){
-      this.messageService.errorLog(error);
     }
   }
-
-
-
+ 
 private async managementToast(): Promise<void>{ //G
   //Ejemplo de como crear un mensaje de confirmación usando un toast
   const toastMsg = document.getElementById('toastMessage');
