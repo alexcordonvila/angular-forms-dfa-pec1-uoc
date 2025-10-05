@@ -79,7 +79,24 @@ export class MessageFormComponent {
 
 
 private async managementToast(): Promise<void>{ //G
-
+  //Ejemplo de como crear un mensaje de confirmación usando un toast
+  const toastMsg = document.getElementById('toastMessage');
+  if(toastMsg){
+    //Request ok-> mostramos el toast i volvemos a la home
+    if(this.validRequest){
+      toastMsg.className = 'show requestOk';
+      toastMsg.textContent = 'Form submited successfully.';
+      await this.messageService.wait(1500);
+      toastMsg.className = toastMsg.className.replace('show', '');
+      this.router.navigateByUrl('');
+    }
+    else{
+      toastMsg.className = 'show requestKo';
+      toastMsg.textContent = 'Error on form submitted, show logs.';
+      await this.messageService.wait(1500);
+      toastMsg.className = toastMsg.className.replace('show', '');
+    }
+  }
 }
   private async editMessage(): Promise<boolean>{ //F
 return false;
