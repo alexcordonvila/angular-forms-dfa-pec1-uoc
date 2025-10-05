@@ -95,18 +95,19 @@ export class MessageFormComponent implements OnInit {
     }
   }
 
-  private async editMessage(): Promise<boolean> {
+
+   private async editMessage(): Promise<boolean>{ //F
     let responseOK: boolean = false;
-    if (this.msgId) {
-      try {
-        await this.messageService.updateMessage(+this.msgId, this.message);
-        responseOK = true;
-      } catch (error: any) {
+
+    if(this.msgId){
+      try{
+          await this.messageService.updateMessage(+this.msgId, this.message);
+      }catch(error: any){
         this.messageService.errorLog(error);
       }
     }
     return responseOK;
-  }
+}
 
   private async createMessage(): Promise<boolean> {
     let responseOK: boolean = false;

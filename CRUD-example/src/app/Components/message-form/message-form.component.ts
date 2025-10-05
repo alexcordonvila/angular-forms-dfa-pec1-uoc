@@ -99,8 +99,17 @@ private async managementToast(): Promise<void>{ //G
   }
 }
   private async editMessage(): Promise<boolean>{ //F
-return false;
+    let responseOK: boolean = false;
 
+    if(this.msgId){
+      try{
+          await this.messageService.updateMessage(+this.msgId, this.message);
+          responseOK = true;
+      }catch(error: any){
+        this.messageService.errorLog(error);
+      }
+    }
+    return responseOK;
 }
 
 private async createMessage(): Promise<boolean>{ //E
